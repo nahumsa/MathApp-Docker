@@ -16,6 +16,7 @@ func main() {
 func setupRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
+	router.LoadHTMLGlob("views/*")
 	router.GET("/:operation/:num1/:num2", getOperation)
 	return router
 
@@ -29,11 +30,26 @@ func getOperation(c *gin.Context) {
 
 	switch operation {
 	case "sum":
-		c.JSON(http.StatusOK, gin.H{"result": add(num1, num2)})
+		c.HTML(http.StatusOK, "result.html",
+			gin.H{"operation": operation,
+				"num1":   num1,
+				"num2":   num2,
+				"result": add(num1, num2),
+			},
+		)
 	case "multiply":
-		c.JSON(http.StatusOK, gin.H{"result": multiply(num1, num2)})
+		c.HTML(http.StatusOK, "result.html",
+			gin.H{"operation": operation,
+				"num1":   num1,
+				"num2":   num2,
+				"result": add(num1, num2),
+			},
+		)
 	default:
-		c.JSON(http.StatusOK, gin.H{"result": "Invalid operation"})
+		c.HTML(http.StatusOK, 
+			"invalid-route.html", 
+			gin.H{"result": "Invalid operation"}
+		)
 	}
 
 }
