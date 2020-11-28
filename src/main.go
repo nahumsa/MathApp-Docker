@@ -46,9 +46,9 @@ func getOperation(c *gin.Context) {
 			},
 		)
 	default:
-		c.HTML(http.StatusOK, 
-			"invalid-route.html", 
-			gin.H{"result": "Invalid operation"}
+		c.HTML(http.StatusOK,
+			"invalid-route.html",
+			gin.H{"result": "Invalid operation"},
 		)
 	}
 
