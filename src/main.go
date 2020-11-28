@@ -17,9 +17,14 @@ func setupRouter() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.LoadHTMLGlob("views/*")
+	router.GET("/", getHomepage)
 	router.GET("/:operation/:num1/:num2", getOperation)
 	return router
 
+}
+
+func getHomepage(c *gin.Context) {
+	c.HTML(http.StatusOK, "homepage.html", nil)
 }
 
 func getOperation(c *gin.Context) {
@@ -37,12 +42,12 @@ func getOperation(c *gin.Context) {
 				"result": add(num1, num2),
 			},
 		)
-	case "multiply":
+	case "multiplication":
 		c.HTML(http.StatusOK, "result.html",
 			gin.H{"operation": operation,
 				"num1":   num1,
 				"num2":   num2,
-				"result": add(num1, num2),
+				"result": multiply(num1, num2),
 			},
 		)
 	default:

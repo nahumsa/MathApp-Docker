@@ -16,6 +16,16 @@ func performRequest(r http.Handler, method, path string) *httptest.ResponseRecor
 	return w
 }
 
+func TestHomepage(t *testing.T) {
+	router := setupRouter()
+	w := performRequest(router, "GET", "/")
+
+	// Assert we encoded correctly,
+	// the request gives a 200
+	assert.Equal(t, http.StatusOK, w.Code)
+
+}
+
 func TestAddGet(t *testing.T) {
 	router := setupRouter()
 	operation := "sum"
@@ -28,16 +38,11 @@ func TestAddGet(t *testing.T) {
 	// Assert we encoded correctly,
 	// the request gives a 200
 	assert.Equal(t, http.StatusOK, w.Code)
-
-	// Test JSON body
-	// expectedBody := `{"result":2}`
-	// readBuf, _ := ioutil.ReadAll(w.Body)
-	// assert.Equal(t, string(readBuf), expectedBody)
 }
 
 func TestProductGet(t *testing.T) {
 	router := setupRouter()
-	operation := "multiply"
+	operation := "multiplication"
 	num1 := 1
 	num2 := 1
 
@@ -47,12 +52,6 @@ func TestProductGet(t *testing.T) {
 	// Assert we encoded correctly,
 	// the request gives a 200
 	assert.Equal(t, http.StatusOK, w.Code)
-
-	// Test JSON Body
-	// body := `{"result":1}`
-	// readBuf, _ := ioutil.ReadAll(w.Body)
-	// assert.Equal(t, string(readBuf), body)
-
 }
 
 type testNumbers struct {

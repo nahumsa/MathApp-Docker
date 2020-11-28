@@ -1,0 +1,21 @@
+<!-- views/homepage.html -->
+<!doctype html>
+<html>
+    <head>
+        <title>MathApp</title>
+    </head>
+    <body>
+        <h1>MathApp</h1>
+        <h3>Choose an operation and number</h3> 
+        <div id="center">
+            <select id="operation" name="operation" required>
+                <option value=""></option>
+                <option value="multiplication">multiplication</option>
+                <option value="sum">sum</option>
+            </select>
+            <input type="int" id="num1" placeholder="Number">
+            <input type="int" id="num2" placeholder="Number">
+            <button onclick="location.href='/'+ document.getElementById('operation').value + '/' + document.getElementById('num1').value + '/' + document.getElementById('num2').value" id="connect">Send</button>
+        </div>  
+    </body>
+</html>
