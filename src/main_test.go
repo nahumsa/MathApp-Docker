@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -17,20 +19,37 @@ func performRequest(r http.Handler, method, path string) *httptest.ResponseRecor
 
 func TestAddGet(t *testing.T) {
 	router := setupRouter()
-	w := performRequest(router, "GET", "/add/1/1")
+	operation := "sum"
+	num1 := 1
+	num2 := 1
+	expectedBody := `{"result":2}`
+
+	url := fmt.Sprintf("/%v/%v/%v", operation, num1, num2)
+	w := performRequest(router, "GET", url)
 
 	// Assert we encoded correctly,
 	// the request gives a 200
 	assert.Equal(t, http.StatusOK, w.Code)
-
+	readBuf, _ := ioutil.ReadAll(w.Body)
+	assert.Equal(t, string(readBuf), expectedBody)
 }
 
 func TestProductGet(t *testing.T) {
 	router := setupRouter()
-	w := performRequest(router, "GET", "/product/1/1")
+	operation := "multiply"
+	num1 := 1
+	num2 := 1
+	body := `{"result":1}`
+
+	url := fmt.Sprintf("/%v/%v/%v", operation, num1, num2)
+	w := performRequest(router, "GET", url)
+
 	// Assert we encoded correctly,
 	// the request gives a 200
 	assert.Equal(t, http.StatusOK, w.Code)
+
+	readBuf, _ := ioutil.ReadAll(w.Body)
+	assert.Equal(t, string(readBuf), body)
 
 }
 
