@@ -23,6 +23,14 @@ func getOperation(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"result": nil})
 }
 
+func add(a, b int) int {
+	return a + b
+}
+
+func multiply(a, b int) int {
+	return a * b
+}
+
 func must(err error) {
 	if err != nil {
 		panic(err)
