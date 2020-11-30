@@ -8,7 +8,7 @@ WORKDIR /mathapp
 COPY go.mod .
 COPY go.sum .
 COPY src/ /mathapp
-# Dowloading dependencies
+# Downloading dependencies
 RUN go mod download
 RUN go mod vendor
 # Setting up enviroment variables
