@@ -1,0 +1,35 @@
+# Building go binary in a separate container
+FROM golang:1.15 as builder
+
+# Making the mathapp directory that we will 
+# put our app
+RUN mkdir -p /mathapp
+WORKDIR /mathapp
+# Copying files from our system to docker
+COPY go.mod .
+COPY go.sum .
+COPY src/ /mathapp
+
+# Downloading dependencies
+RUN go mod download
+RUN go mod vendor
+RUN go mod verify
+# Building the binary
+RUN go build -o mathappbin
+RUN ls
+
+# Creating deploying container
+FROM debian:buster
+
+RUN mkdir -p /mathapp
+WORKDIR /mathapp
+
+COPY src/views /mathapp
+
+ENV GIN_MODE=release
+ENV PORT=8080
+
+COPY --chown=0:0 --from=builder /mathapp /mathapp
+EXPOSE $PORT
+
+ENTRYPOINT ["./mathappbin"]
