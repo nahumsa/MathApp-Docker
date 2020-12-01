@@ -19,4 +19,4 @@ RUN go build -o mathappbin
 # Exposing the port
 EXPOSE $PORT
 # Running app
-ENTRYPOINT ["./mathappbin"]
+CMD ["./mathappbin"]

@@ -32,4 +32,4 @@ ENV PORT=8080
 COPY --chown=0:0 --from=builder /mathapp /mathapp
 EXPOSE $PORT
 
-ENTRYPOINT ["./mathappbin"]
+CMD ["./mathappbin"]

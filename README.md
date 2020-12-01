@@ -7,6 +7,21 @@ in order to implement Continous Development using github actions. As the final p
 
 In order to run docker you use the following commands:
 
-`docker built -t go-mathapp`
+`docker build -t go-mathapp`
 
 `docker run -d -p 8080:8080 go-mathapp`
+
+Or simply run `rundocker.sh`.
+
+
+# Deploying on heroku
+
+In order to deploy on heroku run the following commands:
+
+- `heroku create go-mathapp`
+- `heroku login`
+- `heroku container:login`
+- `heroku container:push web -a go-mathapp`
+- `heroku container:release web -a go-mathapp`
+
+You can see the deployed website on [heroku](https://go-mathapp.herokuapp.com/)
