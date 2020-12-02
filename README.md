@@ -1,6 +1,6 @@
 # Web app using Golang and Docker
 
-[![MathApp](https://circleci.com/gh/nahumsa/MathApp-Docker.svg?style=svg](https://circleci.com/gh/nahumsa/MathApp-Docker)
+[![MathApp](https://circleci.com/gh/nahumsa/MathApp-Docker.svg?style=svg)](https://circleci.com/gh/nahumsa/MathApp-Docker)
 
 This project is based on the post by [SemaphoreCI](https://semaphoreci.com/community/tutorials/how-to-deploy-a-go-web-application-with-docker) on using Golang and Docker for building a web app. 
 
