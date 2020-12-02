@@ -8,9 +8,20 @@ jobs:
       # specify the version
       - image: circleci/golang:1.15
 
+    environment: # environment variables for the build itself
+      TEST_RESULTS: /tmp/test-results # path to where test results will be saved
+
     working_directory: /go/src/github.com/nahumsa/MathApp-Docker
     steps:
       - checkout
+
+      # create the test results directory
+      - run: mkdir -p $TEST_RESULTS 
+
+      - restore_cache: # restores saved cache if no changes are detected since last run
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
+
       - run: go mod download
       - run: go mod vendor
       - run: go mod verify
@@ -18,3 +29,10 @@ jobs:
           name: "Run go test"
           command: >
             go test -v -race ./src
+      
+      - store_artifacts: # upload test summary for display in Artifacts
+          path: /tmp/test-results
+          destination: raw-test-output
+
+      - store_test_results: # upload test results for display in Test Summary
+          path: /tmp/test-results
