@@ -28,7 +28,7 @@ jobs:
       - run:
           name: "Run go test"
           command: >
-            go test -v -race ./src
+            gotestsum --junitfile $TEST_RESULTS/gotestsum-report.xml
       
       - store_artifacts: # upload test summary for display in Artifacts
           path: /tmp/test-results
